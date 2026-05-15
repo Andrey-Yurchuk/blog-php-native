@@ -1,0 +1,29 @@
+{
+  "name": "andrey-yurchuk/blog-php-native",
+  "description": "Native PHP blog application",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.4",
+    "ext-pdo": "*",
+    "smarty/smarty": "^5.5"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2.1",
+    "squizlabs/php_codesniffer": "^3.11"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "cs": "phpcs",
+    "cs:fix": "phpcbf",
+    "analyse": "phpstan analyse"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {}
+  }
+}

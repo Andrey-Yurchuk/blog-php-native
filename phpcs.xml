@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Blog PHP Native">
+    <description>PSR-12 coding standard for the native PHP blog application</description>
+
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="4"/>
+
+    <file>app</file>
+
+    <rule ref="PSR12"/>
+</ruleset>
+
