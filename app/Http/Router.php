@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http;
 
 use App\Exception\NotFoundException;
-use Closure;
 
 final class Router
 {
@@ -14,7 +13,7 @@ final class Router
     /**
      * Регистрирует GET-маршрут и его обработчик
      */
-    public function addGet(string $pattern, Closure $handler): void
+    public function addGet(string $pattern, callable $handler): void
     {
         $this->routes[] = [
             'method' => 'GET',
