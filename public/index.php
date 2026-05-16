@@ -16,4 +16,4 @@ if (!is_file($autoloadPath)) {
 require $autoloadPath;
 
 $app = require dirname(__DIR__) . '/bootstrap/app.php';
-$app->handle(Request::fromGlobals())->send();
+$app->handle(Request::createFromGlobals())->sendResponse();

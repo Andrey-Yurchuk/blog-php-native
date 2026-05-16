@@ -21,15 +21,15 @@ final readonly class Application
     public function handle(Request $request): Response
     {
         try {
-            return $this->router->dispatch($request);
+            return $this->router->dispatchRequest($request);
         } catch (NotFoundException) {
-            return Response::text('Page not found', 404);
+            return Response::createText('Page not found', 404);
         } catch (Throwable $exception) {
             if ($this->debug) {
-                return Response::text($exception->getMessage(), 500);
+                return Response::createText($exception->getMessage(), 500);
             }
 
-            return Response::text('Server error', 500);
+            return Response::createText('Server error', 500);
         }
     }
 }
