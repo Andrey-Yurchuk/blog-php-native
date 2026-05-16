@@ -9,6 +9,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
+      - smarty_cache:/var/www/html/storage/cache/smarty
     networks:
       - blog_network
 
@@ -57,3 +58,4 @@ networks:
 
 volumes:
   mysql_data:
+  smarty_cache:

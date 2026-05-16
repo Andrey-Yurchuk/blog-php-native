@@ -9,4 +9,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 RUN git config --global --add safe.directory /var/www/html
 
+RUN mkdir -p /var/www/html/storage/cache/smarty \
+    && chown -R www-data:www-data /var/www/html/storage
+
 WORKDIR /var/www/html
