@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\DTO\CategoryDTO;
 
 /**
  * Используется для блока категории со списком последних статей на главной странице

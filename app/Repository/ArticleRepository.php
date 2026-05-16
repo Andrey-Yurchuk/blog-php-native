@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\DTO\ArticleCardDTO;
-use App\DTO\ArticleDetailsDTO;
-use App\DTO\CategoryArticleFilterDTO;
-use App\DTO\PaginatedResultDTO;
-use App\DTO\PaginationDTO;
+use App\DTO\ArticleDTO\ArticleCardDTO;
+use App\DTO\ArticleDTO\ArticleDetailsDTO;
+use App\DTO\CategoryDTO\CategoryArticleFilterDTO;
+use App\DTO\PaginationDTO\PaginatedResultDTO;
+use App\DTO\PaginationDTO\PaginationDTO;
 use PDO;
 use PDOStatement;
 

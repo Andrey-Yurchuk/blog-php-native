@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\DTO\ArticleCardDTO;
-use App\DTO\CategoryDetailsDTO;
-use App\DTO\CategoryWithArticlesDTO;
+use App\DTO\ArticleDTO\ArticleCardDTO;
+use App\DTO\CategoryDTO\CategoryDetailsDTO;
+use App\DTO\CategoryDTO\CategoryWithArticlesDTO;
 use PDO;
 use PDOStatement;
 

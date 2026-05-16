@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\DTO\ArticleDTO;
 
 /**
- * Используется для данных категории на странице категории и в связанных списках
+ * Используется для кратких данных статьи в списках и превью без полного текста
  */
-final readonly class CategoryDetailsDTO
+final readonly class ArticleCardDTO
 {
     public function __construct(
         public int $id,
         public string $slug,
+        public string $image,
         public string $title,
         public string $description,
-        public string $createdAt,
-        public string $updatedAt,
+        public string $publishedAt,
+        public int $viewsCount,
     ) {
     }
 
@@ -24,10 +25,11 @@ final readonly class CategoryDetailsDTO
         return new self(
             id: (int) $row['id'],
             slug: (string) $row['slug'],
+            image: (string) $row['image'],
             title: (string) $row['title'],
             description: (string) $row['description'],
-            createdAt: (string) $row['created_at'],
-            updatedAt: (string) $row['updated_at'],
+            publishedAt: (string) $row['published_at'],
+            viewsCount: (int) $row['views_count'],
         );
     }
 }

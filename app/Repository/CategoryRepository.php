@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\DTO\CategoryDetailsDTO;
+use App\DTO\CategoryDTO\CategoryDetailsDTO;
 use PDO;
 use PDOStatement;
 

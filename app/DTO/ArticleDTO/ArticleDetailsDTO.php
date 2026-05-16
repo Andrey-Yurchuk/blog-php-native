@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\DTO\ArticleDTO;
 
 /**
- * Используется для кратких данных статьи в списках и превью без полного текста
+ * Используется для вывода полной информации на странице статьи
  */
-final readonly class ArticleCardDTO
+final readonly class ArticleDetailsDTO
 {
     public function __construct(
         public int $id,
@@ -15,8 +15,11 @@ final readonly class ArticleCardDTO
         public string $image,
         public string $title,
         public string $description,
-        public string $publishedAt,
+        public string $body,
         public int $viewsCount,
+        public string $publishedAt,
+        public string $createdAt,
+        public string $updatedAt,
     ) {
     }
 
@@ -28,8 +31,11 @@ final readonly class ArticleCardDTO
             image: (string) $row['image'],
             title: (string) $row['title'],
             description: (string) $row['description'],
-            publishedAt: (string) $row['published_at'],
+            body: (string) $row['body'],
             viewsCount: (int) $row['views_count'],
+            publishedAt: (string) $row['published_at'],
+            createdAt: (string) $row['created_at'],
+            updatedAt: (string) $row['updated_at'],
         );
     }
 }
