@@ -41,6 +41,30 @@ final class Env
     }
 
     /**
+     * Возвращает int-значение переменной окружения или значение по дефолту
+     */
+    public static function getInt(string $key, ?int $default = null): int
+    {
+        $value = self::getRawValue($key);
+
+        if ($value === null || $value === '') {
+            if ($default === null) {
+                throw new RuntimeException(sprintf('Missing required environment variable "%s".', $key));
+            }
+
+            return $default;
+        }
+
+        $intValue = filter_var($value, FILTER_VALIDATE_INT);
+
+        if ($intValue === false) {
+            throw new RuntimeException(sprintf('Environment variable "%s" must be an integer.', $key));
+        }
+
+        return $intValue;
+    }
+
+    /**
      * Читает исходное значение переменной окружения из $_ENV, $_SERVER или getenv()
      */
     private static function getRawValue(string $key): ?string

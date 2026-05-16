@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+use App\Database\DatabaseConnection;
+use App\Database\Migrator;
+
+$rootPath = dirname(__DIR__);
+$autoloadPath = $rootPath . '/vendor/autoload.php';
+
+if (!is_file($autoloadPath)) {
+    fwrite(STDERR, "Composer autoload file was not found\n");
+    exit(1);
+}
+
+require $autoloadPath;
+
+try {
+    $pdo = DatabaseConnection::create();
+    $migrator = new Migrator($pdo, $rootPath . '/database/migrations');
+    $migrator->runMigrations();
+
+    fwrite(STDOUT, "Migrations completed\n");
+} catch (Throwable $exception) {
+    fwrite(STDERR, $exception->getMessage() . PHP_EOL);
+    exit(1);
+}
