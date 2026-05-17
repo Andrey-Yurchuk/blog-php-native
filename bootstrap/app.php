@@ -45,4 +45,4 @@ $router = new Router();
 $routes = require $rootPath . '/config/routes.php';
 $routes($router, $homeController, $categoryController, $articleController);
 
-return new Application($router, Env::getBool('APP_DEBUG'));
+return new Application($router, $renderer, Env::getBool('APP_DEBUG'));
