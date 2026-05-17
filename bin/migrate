@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 use App\Database\DatabaseConnection;
-use App\Database\Migrator;
+use App\Database\DatabaseMigrator;
 
 $rootPath = dirname(__DIR__);
 $autoloadPath = $rootPath . '/vendor/autoload.php';
@@ -18,7 +18,7 @@ require $autoloadPath;
 
 try {
     $pdo = DatabaseConnection::create();
-    $migrator = new Migrator($pdo, $rootPath . '/database/migrations');
+    $migrator = new DatabaseMigrator($pdo, $rootPath . '/database/migrations');
     $migrator->runMigrations();
 
     fwrite(STDOUT, "Migrations completed\n");

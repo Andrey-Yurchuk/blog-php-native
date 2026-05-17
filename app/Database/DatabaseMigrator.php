@@ -8,7 +8,7 @@ use DateTimeImmutable;
 use PDO;
 use RuntimeException;
 
-final class Migrator
+final class DatabaseMigrator
 {
     public function __construct(
         private readonly PDO $pdo,
