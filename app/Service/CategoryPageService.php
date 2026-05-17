@@ -10,6 +10,7 @@ use App\DTO\PaginationDTO\PaginationDTO;
 use App\Exception\NotFoundException;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
+use App\Validation\SlugValidator;
 
 final class CategoryPageService
 {
@@ -27,6 +28,10 @@ final class CategoryPageService
      */
     public function getPageData(string $slug, ?string $sort, ?string $page): CategoryPageDataDTO
     {
+        if (!SlugValidator::isValid($slug)) {
+            throw new NotFoundException();
+        }
+
         $category = $this->categoryRepository->findBySlug($slug);
 
         if ($category === null) {

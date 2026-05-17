@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\DTO\ArticleDTO;
 
+use App\Validation\ImagePathValidator;
+
 /**
  * Используется для вывода полной информации на странице статьи
  */
@@ -28,7 +30,7 @@ final readonly class ArticleDetailsDTO
         return new self(
             id: (int) $row['id'],
             slug: (string) $row['slug'],
-            image: (string) $row['image'],
+            image: ImagePathValidator::normalize((string) $row['image']),
             title: (string) $row['title'],
             description: (string) $row['description'],
             body: (string) $row['body'],

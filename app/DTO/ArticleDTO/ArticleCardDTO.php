@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\DTO\ArticleDTO;
 
+use App\Validation\ImagePathValidator;
+
 /**
  * Используется для кратких данных статьи в списках и превью без полного текста
  */
@@ -25,7 +27,7 @@ final readonly class ArticleCardDTO
         return new self(
             id: (int) $row['id'],
             slug: (string) $row['slug'],
-            image: (string) $row['image'],
+            image: ImagePathValidator::normalize((string) $row['image']),
             title: (string) $row['title'],
             description: (string) $row['description'],
             publishedAt: (string) $row['published_at'],

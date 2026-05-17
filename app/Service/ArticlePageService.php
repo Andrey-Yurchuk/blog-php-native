@@ -10,6 +10,7 @@ use App\DTO\PageDTO\ArticlePageDataDTO;
 use App\Exception\NotFoundException;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
+use App\Validation\SlugValidator;
 
 final class ArticlePageService
 {
@@ -27,6 +28,10 @@ final class ArticlePageService
      */
     public function getPageData(string $slug): ArticlePageDataDTO
     {
+        if (!SlugValidator::isValid($slug)) {
+            throw new NotFoundException();
+        }
+
         $article = $this->articleRepository->findBySlug($slug);
 
         if ($article === null) {
