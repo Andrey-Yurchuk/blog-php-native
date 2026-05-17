@@ -6,10 +6,10 @@ services:
     container_name: blog_php
     env_file:
       - .env
+    user: "${HOST_UID}:${HOST_GID}"
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
-      - smarty_cache:/var/www/html/storage/cache/smarty
     networks:
       - blog_network
 
@@ -46,6 +46,7 @@ services:
     container_name: blog_node
     profiles:
       - assets
+    user: "${HOST_UID}:${HOST_GID}"
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
@@ -58,4 +59,3 @@ networks:
 
 volumes:
   mysql_data:
-  smarty_cache:
