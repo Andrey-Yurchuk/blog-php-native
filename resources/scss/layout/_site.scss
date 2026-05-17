@@ -1,0 +1,26 @@
+.site-shell {
+    width: min(100% - 48px, 1000px);
+    margin: 0 auto;
+}
+
+.site-header {
+    height: 40px;
+    background: #285a68;
+    color: #ffffff;
+}
+
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.site-logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.site-main {
+    min-height: calc(100vh - 178px);
+}

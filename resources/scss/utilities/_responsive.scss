@@ -1,0 +1,37 @@
+@media (max-width: 760px) {
+    .site-shell {
+        width: min(100% - 32px, 1000px);
+    }
+
+    .blog-home,
+    .page-section {
+        padding-top: 34px;
+        padding-bottom: 58px;
+    }
+
+    .category-section {
+        margin-top: 58px;
+    }
+
+    .article-grid--three,
+    .article-detail {
+        grid-template-columns: 1fr;
+    }
+
+    .article-grid {
+        gap: 32px;
+    }
+
+    .page-header {
+        display: block;
+    }
+
+    .sort-nav {
+        justify-content: flex-start;
+        margin-top: 18px;
+    }
+
+    .article-detail {
+        gap: 28px;
+    }
+}

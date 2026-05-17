@@ -1,0 +1,55 @@
+.error-page__message {
+    margin-bottom: 0.5rem;
+}
+
+.error-page__type {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.error-page__trace {
+    margin: 1.5rem 0;
+    max-height: 24rem;
+    overflow: auto;
+    padding: 1rem;
+    background: #f3f4f6;
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.empty-state {
+    padding: 72px 0;
+    text-align: center;
+}
+
+.empty-state--error {
+    text-align: center;
+}
+
+.error-page__content {
+    max-width: 620px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.error-page__content h1,
+.error-page__content h2 {
+    margin: 0;
+}
+
+.error-page__content p {
+    margin: 12px 0 0;
+}
+
+.error-page__content .error-page__trace {
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.empty-state--compact {
+    padding: 46px 0;
+}
