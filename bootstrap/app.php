@@ -21,18 +21,19 @@ $rootPath = dirname(__DIR__);
 $pdo = DatabaseConnection::create();
 $categoryRepository = new CategoryRepository($pdo);
 $articleRepository = new ArticleRepository($pdo);
-$homePageRepository = new HomePageRepository($pdo, $categoryRepository);
+$homePageRepository = new HomePageRepository($pdo, $categoryRepository, $articleRepository);
+$categoryPageService = new CategoryPageService($categoryRepository, $articleRepository);
 $renderer = SmartyRenderer::createDefault(
     $rootPath . '/resources/templates',
     $rootPath . '/storage/cache/smarty',
 );
 
 $homeController = new HomeController(
-    new HomePageService($homePageRepository),
+    new HomePageService($homePageRepository, $categoryPageService->getArticlesPerPage()),
     $renderer,
 );
 $categoryController = new CategoryController(
-    new CategoryPageService($categoryRepository, $articleRepository),
+    $categoryPageService,
     $renderer,
 );
 $articleController = new ArticleController(

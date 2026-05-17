@@ -49,4 +49,23 @@ final readonly class PaginationDTO
     {
         return min($this->getTotalPages(), $this->page + 1);
     }
+
+    public function buildPageUrl(string $baseUrl, int $targetPage, ?string $sortQuery = null): string
+    {
+        $query = [];
+
+        if ($sortQuery !== null && $sortQuery !== '') {
+            $query['sort'] = $sortQuery;
+        }
+
+        if ($this->getTotalPages() > 1) {
+            $query['page'] = (string) $targetPage;
+        }
+
+        if ($query === []) {
+            return $baseUrl;
+        }
+
+        return $baseUrl . '?' . http_build_query($query);
+    }
 }

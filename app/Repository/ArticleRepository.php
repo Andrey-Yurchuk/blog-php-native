@@ -63,6 +63,36 @@ final class ArticleRepository
     }
 
     /**
+     * Возвращает количество статей по списку категорий
+     */
+    public function countByCategoryIds(array $categoryIds): array
+    {
+        if ($categoryIds === []) {
+            return [];
+        }
+
+        $placeholders = implode(', ', array_fill(0, count($categoryIds), '?'));
+        $statement = $this->pdo->prepare(
+            sprintf(
+                'SELECT category_id, COUNT(*) AS total
+                 FROM article_category
+                 WHERE category_id IN (%s)
+                 GROUP BY category_id',
+                $placeholders,
+            ),
+        );
+        $statement->execute($categoryIds);
+
+        $counts = [];
+
+        while ($row = $statement->fetch()) {
+            $counts[(int) $row['category_id']] = (int) $row['total'];
+        }
+
+        return $counts;
+    }
+
+    /**
      * Возвращает полную статью по slug
      */
     public function findBySlug(string $slug): ?ArticleDetailsDTO

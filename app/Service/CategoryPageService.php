@@ -14,7 +14,7 @@ use App\Repository\CategoryRepository;
 final class CategoryPageService
 {
     /** Лимит статей на одной странице категории */
-    private const int ARTICLES_PER_PAGE = 10;
+    private const int ARTICLES_PER_PAGE = 9;
 
     public function __construct(
         private readonly CategoryRepository $categoryRepository,
@@ -33,36 +33,66 @@ final class CategoryPageService
             throw new NotFoundException();
         }
 
-        $filter = $this->normalizeSort($sort);
+        $sortState = $this->resolveSort($sort);
+        $totalItems = $this->articleRepository->countByCategory($category->id);
         $pagination = new PaginationDTO(
             $this->normalizePage($page),
             self::ARTICLES_PER_PAGE,
-            $this->articleRepository->countByCategory($category->id),
+            $totalItems,
         );
+
+        if ($totalItems > 0 && $pagination->page > $pagination->getTotalPages()) {
+            throw new NotFoundException();
+        }
+
         $articles = $this->articleRepository->findPaginatedByCategory(
             $category->id,
-            $filter,
+            $sortState['filter'],
             $pagination,
         );
 
         return new CategoryPageDataDTO(
             $category,
             $articles,
-            $filter->sort,
+            $sortState['filter']->sort,
+            $sortState['sortQuery'],
         );
     }
 
     /**
-     * Нормализует параметр сортировки к допустимому значению
+     * Возвращает лимит статей на странице категории
      */
-    private function normalizeSort(?string $sort): CategoryArticleFilterDTO
+    public function getArticlesPerPage(): int
     {
-        return new CategoryArticleFilterDTO(
-            match ($sort) {
-                CategoryArticleFilterDTO::SORT_VIEWS_COUNT => CategoryArticleFilterDTO::SORT_VIEWS_COUNT,
-                default => CategoryArticleFilterDTO::SORT_PUBLISHED_AT,
-            },
-        );
+        return self::ARTICLES_PER_PAGE;
+    }
+
+    /**
+     * Возвращает сортировку для SQL и значение sort для URL
+     */
+    private function resolveSort(?string $sort): array
+    {
+        if ($sort === null || $sort === '') {
+            return [
+                'filter' => new CategoryArticleFilterDTO(CategoryArticleFilterDTO::SORT_PUBLISHED_AT),
+                'sortQuery' => null,
+            ];
+        }
+
+        return match ($sort) {
+            CategoryArticleFilterDTO::SORT_VIEWS_COUNT => [
+                'filter' => new CategoryArticleFilterDTO(CategoryArticleFilterDTO::SORT_VIEWS_COUNT),
+                'sortQuery' => CategoryArticleFilterDTO::SORT_VIEWS_COUNT,
+            ],
+            CategoryArticleFilterDTO::SORT_PUBLISHED_AT => [
+                'filter' => new CategoryArticleFilterDTO(CategoryArticleFilterDTO::SORT_PUBLISHED_AT),
+                'sortQuery' => CategoryArticleFilterDTO::SORT_PUBLISHED_AT,
+            ],
+            default => [
+                'filter' => new CategoryArticleFilterDTO(CategoryArticleFilterDTO::SORT_PUBLISHED_AT),
+                'sortQuery' => null,
+            ],
+        };
     }
 
     /**

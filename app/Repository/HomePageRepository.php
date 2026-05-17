@@ -15,13 +15,14 @@ final class HomePageRepository
     public function __construct(
         private readonly PDO $pdo,
         private readonly CategoryRepository $categoryRepository,
+        private readonly ArticleRepository $articleRepository,
     ) {
     }
 
     /**
      * Возвращает категории с последними статьями для главной страницы
      */
-    public function findCategoriesWithLatestArticles(int $limitPerCategory): array
+    public function findCategoriesWithLatestArticles(int $limitPerCategory, int $articlesPerPage): array
     {
         $categories = $this->categoryRepository->findCategoriesWithArticles();
 
@@ -34,8 +35,14 @@ final class HomePageRepository
             $categories,
         );
         $articlesByCategoryId = $this->findLatestArticlesByCategoryIds($categoryIds, $limitPerCategory);
+        $articleCountsByCategoryId = $this->articleRepository->countByCategoryIds($categoryIds);
 
-        return $this->mergeCategoriesWithArticles($categories, $articlesByCategoryId);
+        return $this->mergeCategoriesWithArticles(
+            $categories,
+            $articlesByCategoryId,
+            $articleCountsByCategoryId,
+            $articlesPerPage,
+        );
     }
 
     /**
@@ -60,14 +67,20 @@ final class HomePageRepository
     /**
      * Собирает категории со списками статей для главной страницы
      */
-    private function mergeCategoriesWithArticles(array $categories, array $articlesByCategoryId): array
-    {
+    private function mergeCategoriesWithArticles(
+        array $categories,
+        array $articlesByCategoryId,
+        array $articleCountsByCategoryId,
+        int $articlesPerPage,
+    ): array {
         $result = [];
 
         foreach ($categories as $category) {
             $result[] = new CategoryWithArticlesDTO(
                 $category,
                 $articlesByCategoryId[$category->id] ?? [],
+                $articleCountsByCategoryId[$category->id] ?? 0,
+                $articlesPerPage,
             );
         }
 

@@ -16,6 +16,7 @@ final readonly class CategoryPageDataDTO
         public CategoryDetailsDTO $category,
         public PaginatedResultDTO $articles,
         public string $sort,
+        public ?string $sortQuery,
     ) {
     }
 
@@ -28,6 +29,7 @@ final readonly class CategoryPageDataDTO
             'category' => $this->category,
             'articles' => $this->articles,
             'sort' => $this->sort,
+            'sortQuery' => $this->sortQuery,
         ];
     }
 }

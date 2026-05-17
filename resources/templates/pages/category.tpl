@@ -9,8 +9,8 @@
             </div>
 
             <nav class="sort-nav" aria-label="Article sorting">
-                <a class="sort-nav__link{if $sort == 'published_at'} sort-nav__link--active{/if}" href="/category/{$category->slug}?sort=published_at">Newest</a>
-                <a class="sort-nav__link{if $sort == 'views_count'} sort-nav__link--active{/if}" href="/category/{$category->slug}?sort=views_count">Most viewed</a>
+                <a class="sort-nav__link{if $sort == 'published_at'} sort-nav__link--active{/if}" href="{$articles->pagination->buildPageUrl('/category/'|cat:$category->slug, $articles->pagination->page, 'published_at')}">Newest</a>
+                <a class="sort-nav__link{if $sort == 'views_count'} sort-nav__link--active{/if}" href="{$articles->pagination->buildPageUrl('/category/'|cat:$category->slug, $articles->pagination->page, 'views_count')}">Most viewed</a>
             </nav>
         </header>
 
@@ -21,7 +21,7 @@
                 {/foreach}
             </div>
 
-            {include file="partials/pagination.tpl" pagination=$articles->pagination baseUrl="/category/{$category->slug}" sort=$sort}
+            {include file="partials/pagination.tpl" pagination=$articles->pagination baseUrl="/category/{$category->slug}" sortQuery=$sortQuery}
         {else}
             <section class="empty-state empty-state--compact">
                 <h2>No articles in this category</h2>

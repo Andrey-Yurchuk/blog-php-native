@@ -14,6 +14,7 @@ final class HomePageService
 
     public function __construct(
         private readonly HomePageRepository $homePageRepository,
+        private readonly int $articlesPerPage,
     ) {
     }
 
@@ -25,6 +26,7 @@ final class HomePageService
         return new HomePageDataDTO(
             $this->homePageRepository->findCategoriesWithLatestArticles(
                 self::LATEST_ARTICLES_PER_CATEGORY,
+                $this->articlesPerPage,
             ),
         );
     }

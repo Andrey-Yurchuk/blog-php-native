@@ -7,7 +7,7 @@
                 <section class="category-section">
                     <div class="section-heading">
                         <h1 class="section-heading__title">{$categoryBlock->category->title}</h1>
-                        <a class="text-link" href="/category/{$categoryBlock->category->slug}">View All</a>
+                        <a class="text-link" href="{$categoryBlock->getListUrl()}">View All</a>
                     </div>
 
                     <div class="article-grid article-grid--three">
