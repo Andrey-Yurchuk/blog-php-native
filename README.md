@@ -97,3 +97,7 @@ docker compose exec php composer cs
 ```bash
 docker compose exec php composer analyse
 ```
+
+## Скриншот
+
+![Главная страница приложения](public/assets/screen.png)
