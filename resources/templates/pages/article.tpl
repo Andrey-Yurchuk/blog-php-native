@@ -23,7 +23,7 @@
                 {/if}
 
                 <div class="article-body">
-                    {$article->body|nl2br}
+                    {$article->body}
                 </div>
             </div>
         </article>
