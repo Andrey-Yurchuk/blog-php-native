@@ -1,0 +1,12 @@
+{
+  "name": "blog-php-native-assets",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "sass resources/scss/app.scss public/assets/css/app.css --style=expanded",
+    "watch": "sass resources/scss/app.scss public/assets/css/app.css --watch --style=expanded"
+  },
+  "devDependencies": {
+    "sass": "^1.89.0"
+  }
+}
