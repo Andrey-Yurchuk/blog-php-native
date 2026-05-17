@@ -20,4 +20,33 @@ final readonly class PaginationDTO
     {
         return ($this->page - 1) * $this->perPage;
     }
+
+    public function getTotalPages(): int
+    {
+        if ($this->totalItems === 0) {
+            return 1;
+        }
+
+        return (int) ceil($this->totalItems / $this->perPage);
+    }
+
+    public function hasPreviousPage(): bool
+    {
+        return $this->page > 1;
+    }
+
+    public function hasNextPage(): bool
+    {
+        return $this->page < $this->getTotalPages();
+    }
+
+    public function getPreviousPage(): int
+    {
+        return max(1, $this->page - 1);
+    }
+
+    public function getNextPage(): int
+    {
+        return min($this->getTotalPages(), $this->page + 1);
+    }
 }

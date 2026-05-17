@@ -25,9 +25,7 @@ final readonly class HomeController
             'pages/home.tpl',
             array_merge(
                 [
-                    'pageTitle' => 'Blog PHP Native',
-                    'heading' => 'Blog PHP Native',
-                    'description' => 'Latest articles grouped by category',
+                    'pageTitle' => 'Blogy',
                 ],
                 $pageData->toTemplateVars(),
             ),
